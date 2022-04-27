@@ -40,7 +40,7 @@ class Solution {
         for (int i=0; i<usize; i++) {
         	answer[i] = mcount.get(id_list[i]);
         }
-        int a =0;
+        int c =0;
         return answer;
     }
 }
