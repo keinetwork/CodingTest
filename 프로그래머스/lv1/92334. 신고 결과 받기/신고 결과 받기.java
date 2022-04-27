@@ -27,7 +27,6 @@ class Solution {
             defunch.add(rs[0]);
         }
         
-        ArrayList<Integer> ret = new ArrayList<>();
         for (int i=0; i<usize; i++) {
         	Set<String> reget = react.get(id_list[i]);
         	if (reget.size() >= k) {
