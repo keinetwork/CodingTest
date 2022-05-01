@@ -12,14 +12,13 @@ public class Main {
 		int A = Integer.parseInt(bf.readLine());
 		int B = Integer.parseInt(bf.readLine());
 		int C = Integer.parseInt(bf.readLine());
-		Integer D = A * B * C;
-		String str = D.toString();
+		
+		String str = String.valueOf(A * B * C);
 		int[] ret = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		for (int i = 0; i < str.length(); i++) {
-			int N = (int) (str.charAt(i)-'0');
-			ret[N] += 1;
-		}
-		
+			int N = Integer.parseInt(str.substring(i,i+1));
+			ret[N]++;
+		}		
 		for(int p : ret) {
 			bw.write(p + "\n");	
 		}
