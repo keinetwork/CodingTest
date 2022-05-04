@@ -12,14 +12,16 @@ public class Main {
 		int su2 = n / 10;
 
 		if (su2 != 0) {
-			hansu(su2, arr);
+			if (hansu(su2, arr) == false) {
+				return false;
+			}
 		}
 		arr.add(su1);
 
 		if (arr.size() < 3)
 			return true;
 
-		if (arr.get(0) - arr.get(1) == arr.get(1) - arr.get(arr.size() - 1))
+		if (arr.get(0) - arr.get(1) == arr.get(arr.size() - 2) - arr.get(arr.size() - 1))
 			return true;
 		return false;
 	}
