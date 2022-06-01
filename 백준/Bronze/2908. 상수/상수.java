@@ -1,16 +1,18 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
-
-        String str = sb.append(br.readLine()).reverse().toString();
-        int[] num = Arrays.stream(str.split(" "))
-                .map(String::trim).mapToInt(Integer::parseInt).toArray();
-        System.out.print(num[0] > num[1] ? num[0] : num[1]);
+        int[] A = new int[3];
+        int[] B = new int[3];
+        for (int i = 0; i < A.length; i++) {
+            A[i] = System.in.read() - '0';
+        }
+        System.in.read();
+        for (int i = 0; i < B.length; i++) {
+            B[i] = System.in.read() - '0';
+        }
+        int tA = A[0] + A[1] * 10 + A[2] * 100;
+        int tB = B[0] + B[1] * 10 + B[2] * 100;
+        System.out.println(tA > tB ? tA : tB);
     }
 }
