@@ -1,31 +1,30 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
-class Main {
-    public static void main(String[] args) throws IOException {
+public class Main {
+    public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         int result = 0;
+
         for (int i = 0; i < N; i++) {
-            char[] word = br.readLine().toCharArray();
-            if (checkGroup(word))
-                result++;
+            int[] alpabet = new int[26];
+            boolean isGroup = true;
+            int prev = -1;
+            for (int cur = br.read(); cur > 10; cur = br.read()) {
+                cur -= 97;
+                if (cur != prev) {
+                    if (alpabet[cur] != 0) {
+                        isGroup = false;
+                    } else {
+                        alpabet[cur]++;
+                        prev = cur;
+                    }
+                }
+            }
+            if (isGroup) result++;
         }
         System.out.println(result);
-    }
-
-    private static boolean checkGroup(char[] word) {
-        boolean[] alphabet = new boolean[26];
-
-        char pre = 0;
-        for (char w : word) {
-            if (pre != w && alphabet[w - 'a'])
-                return false;
-            pre = w;
-            alphabet[w - 'a'] = true;
-        }
-
-        return true;
     }
 }
