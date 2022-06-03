@@ -1,15 +1,17 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer tokenizer = new StringTokenizer(br.readLine());
+        int A, B, C;
 
-        String[] input = br.readLine().split(" ");
-        int A = Integer.parseInt(input[0]);
-        int B = Integer.parseInt(input[1]);
-        int C = Integer.parseInt(input[2]);
+        A = Integer.parseInt(tokenizer.nextToken());
+        B = Integer.parseInt(tokenizer.nextToken());
+        C = Integer.parseInt(tokenizer.nextToken());
 
         int BREAK = 0;
         if (0 >= C - B) {
