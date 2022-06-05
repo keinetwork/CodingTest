@@ -15,9 +15,9 @@ public class Main {
         }
     }
 
-    public static String assign(int H, int W, int N) {
+    public static int assign(int H, int W, int N) {
         int f = ((N - 1) % H) + 1;
         int n = (N - 1) / H + 1;
-        return Integer.toString(f * 100 + n);
+        return f * 100 + n;
     }
 }
