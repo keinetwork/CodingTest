@@ -1,44 +1,39 @@
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.BufferedWriter;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.StringTokenizer;
 
-public class Main {
-
-	public static void main(String[] args) throws IOException {
-		// 입력값 처리
-		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-		String s;
-		s = input.readLine();
-		StringTokenizer token = new StringTokenizer(s);
-		int m = Integer.parseInt(token.nextToken());
-		int n = Integer.parseInt(token.nextToken());
-		
-        List prime = new ArrayList();
-		// 1은 소수가 아니므로 2부터 탐색
-		for (int i = 2; i <= n; i++) {
-			boolean check = true;
-			ListIterator it = prime.listIterator();
-			while (it.hasNext()) {
-        int temp = (int)it.next();
-				if (i%temp == 0) {
-				    check = false;
-				    break;
+class Main {
+    public static void main(String args[]) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        String[] str = br.readLine().split(" ");
+        int M = Integer.parseInt(str[0]);
+        int N = Integer.parseInt(str[1]);
+        List list = new ArrayList<Integer>();
+        for (int i = 2; i <= N; i++) {
+            boolean check = true;
+            int j = 0;
+            ListIterator it = list.listIterator();
+            while (it.hasNext()) {
+                int sosu = (int) it.next();
+                if (i % sosu == 0) {
+                    check = false;
+                    break;
+                }
+                if (sosu >= Math.sqrt(i)) break;
+            }
+            if (check) {
+                list.add(i);
+                if (i >= M) {
+                    bw.write(Integer.toString(i) + "\n");
+                }
+            }
         }
-        if(temp > Math.sqrt(i)){
-            break;
-        }				
-			}
-			if(check == true) {
-				prime.add(i);
-				if(i >= m) {
-					System.out.println(i);
-				}
-			}
-		}
-
-	}
+        bw.flush();
+        bw.close();
+    }
 }
