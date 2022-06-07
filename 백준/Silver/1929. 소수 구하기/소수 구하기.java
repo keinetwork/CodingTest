@@ -17,7 +17,8 @@ public class Main {
         	if(i >= n) sb.append(i+"\n");
         	
         	for(int j=i+i; j<=m; j+=i) {
-        		prime[j] = true;
+                if(prime[j]==false)
+        		    prime[j] = true;
         	}
         }
         
