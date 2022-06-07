@@ -16,7 +16,7 @@ class Main {
         List list = new ArrayList<Integer>();
         for (int i = 2; i <= N; i++) {
             boolean check = true;
-            int j = 0;
+            double sqrt = Math.sqrt(i);
             ListIterator it = list.listIterator();
             while (it.hasNext()) {
                 int sosu = (int) it.next();
@@ -24,7 +24,7 @@ class Main {
                     check = false;
                     break;
                 }
-                if (sosu >= Math.sqrt(i)) break;
+                if (sosu >= sqrt) break;
             }
             if (check) {
                 list.add(i);
