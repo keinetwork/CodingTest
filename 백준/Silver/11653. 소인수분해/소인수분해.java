@@ -9,14 +9,14 @@ public class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int N = Integer.parseInt(br.readLine());
-        for (int i = 2; N >= i; ) {
-            if (N % i == 0) {
-                N /= i;
+        for (int i = 2; i * i <= N; i++) {
+            while (N % i == 0) {
                 bw.write(Integer.toString(i) + "\n");
-            } else {
-                i++;
+                N /= i;
             }
         }
+        if (N != 1) bw.write(Integer.toString(N) + "\n");
+        br.close();
         bw.flush();
         bw.close();
     }
