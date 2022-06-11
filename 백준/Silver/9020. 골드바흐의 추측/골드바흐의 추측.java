@@ -4,12 +4,22 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 public class Main {
-    static boolean[] isPrime = new boolean[10001];
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        setPrime();
+        boolean[] isPrime = new boolean[10001];
+        isPrime[0] = true;
+        isPrime[1] = true;
+        double sqrt = Math.sqrt(isPrime.length);
+        for (int i = 2; i <= sqrt; i++) {
+            if (isPrime[i])
+                continue;
+            for (int j = i * i; j < isPrime.length; j += i) {
+                isPrime[j] = true;
+            }
+        }
+
         int T = Integer.parseInt(br.readLine());
         for (int i = 0; i < T; i++) {
             int n = Integer.parseInt(br.readLine());
@@ -24,18 +34,5 @@ public class Main {
         br.close();
         bw.flush();
         bw.close();
-    }
-
-    public static void setPrime() {
-        isPrime[0] = true;
-        isPrime[1] = true;
-        double sqrt = Math.sqrt(isPrime.length);
-        for (int i = 2; i <= sqrt; i++) {
-            if (isPrime[i])
-                continue;
-            for (int j = i * i; j < isPrime.length; j += i) {
-                isPrime[j] = true;
-            }
-        }
     }
 }
