@@ -13,12 +13,12 @@ public class Main {
             System.out.println(1);
             return;
         }
-        int pre = 0, cur = 1, swap = 0;
-        for (int i = 1; i < n; i++) {
-            swap = cur;
-            cur += pre;
-            pre = swap;
+        int[] fibonacci = new int[3];
+        fibonacci[1] = 1;
+
+        for (int i = 2; i <= n; i++) {
+            fibonacci[i % 3] = fibonacci[(i - 1) % 3] + fibonacci[(i - 2) % 3];
         }
-        System.out.println(cur);
+        System.out.println(fibonacci[n % 3]);
     }
 }
