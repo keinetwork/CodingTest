@@ -1,60 +1,43 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 
-public class Main {
-    static boolean isBlank(int x, int y, int n) {
-        int offset = n / 3; //1,3,9
-        if (offset == 0) return false;
-        if (x / offset == 1 && y / offset == 1) {
-            return true;
-        }
-        if (x % offset == 1 && y % offset == 1) {
-            return true;
-        }
-        return isBlank(x % offset, y % offset, n / 3);
-    }
+class Main {
+    public static char[][] star;
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        int N = Integer.parseInt(br.readLine());
-        char[][] star = new char[N][N];
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (i % 3 == 1 && j % 3 == 1) {
-                    star[i][j] = ' ';
-                } else {
-                    star[i][j] = '*';
-                }
-            }
-        }
-        int[] ep = {3, 6};
-        int[] cp = {3, 9};
-        while (cp[1] <= N) {
-            for (int i = 0; i < cp[1]; i++) {
-                for (int j = 0; j < cp[1]; j++) {
-                    if (star[i][j] != 0) continue;
-                    if (i >= ep[0] && i < ep[1] && j >= ep[0] && j < ep[1]) {
-                        star[i][j] = ' ';
-                        continue;
-                    }
-                    star[i][j] = star[i % cp[0]][j % cp[0]];
-                }
-            }
-            ep[0] *= 3;
-            ep[1] = ep[0] * 2;
-            cp[0] *= 3;
-            cp[1] *= 3;
-        }
-        for (int i = 0; i < cp[0]; i++) {
+        int n = Integer.parseInt(br.readLine());
+
+        star = new char[n][n];
+
+        printStar(0, 0, n, true);
+        for (int i = 0; i < n; i++) {
             bw.write(star[i]);
-            bw.newLine();
+            bw.write("\n");
+        }
+        bw.flush();
+    }
+
+    private static void printStar(int x, int y, int n, boolean isStar) {
+        if (!isStar) {
+            for (int i = x; i < x + n; i++) {
+                for (int j = y; j < y + n; j++) {
+                    star[i][j] = ' ';
+                }
+            }
+            return;
         }
 
-        br.close();
-        bw.flush();
-        bw.close();
+        if (n == 1) {
+            star[x][y] = '*';
+            return;
+        }
+        int cnt = 0;
+        for (int i = x; i < x + n; i += n / 3) {
+            for (int j = y; j < y + n; j += n / 3) {
+                printStar(i, j, n / 3, cnt != 4);
+                cnt++;
+            }
+        }
     }
 }
