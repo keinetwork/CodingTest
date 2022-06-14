@@ -1,40 +1,77 @@
 import java.io.*;
+import java.util.Arrays;
 
 public class Main {
     static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+    static Top[] top = new Top[3];
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
-        bw.write((int) (Math.pow(2, N) - 1) + "\n");
-        Hanoi(N, 1, 2, 3);
-        bw.flush();
-        bw.close();
-    }
-
-	/*
-		N : 원판의 개수
-		start : 출발지
-		mid : 옮기기 위해 이동해야 장소
-		to : 목적지
-	 */
-
-    public static void Hanoi(int N, int start, int mid, int to) throws IOException {
-        // 이동할 원반의 수가 1개라면?
-        if (N == 1) {
-            bw.write(start + " " + to + "\n");
+    public static void hanoit(boolean odd, int a, int b) throws IOException {
+        if (top[a].isEmpty()) {
             return;
         }
+        int p = top[a].pop();
+        top[b].push(p);
+        bw.write((a + 1) + " " + (b + 1) + "\n");
+        if (odd) {
+            a = ++a % 3;
+            b = ++b % 3;
+        } else {
+            a = (a + 2) % 3;
+            b = (b + 2) % 3;
+        }
 
-        // A -> C로 옮긴다고 가정할 떄,
-        // STEP 1 : N-1개를 A에서 B로 이동 (= start 지점의 N-1개의 원판을 mid 지점으로 옮긴다.)
-        Hanoi(N - 1, start, to, mid);
+        if (top[a].isEmpty() || (!top[b].isEmpty() && top[a].get() > top[b].get())) {
+            int temp = a;
+            a = b;
+            b = temp;
+        }
+        hanoit(odd, a, b);
+    }
 
-        // STEP 2 : 1개를 A에서 C로 이동 (= start 지점의 N번째 원판을 to지점으로 옮긴다.)
-        bw.write(start + " " + to + "\n");
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        for (int i = 0; i < 3; i++) {
+            top[i] = new Top(N);
+        }
+        for (int i = N; i > 0; i--) {
+            top[0].push(i);
+        }
+        bw.write(((int) Math.pow(2, N)) - 1 + "\n");
+        hanoit(N % 2 == 1, 0, N % 2 + 1);
+        bw.flush();
+    }
 
-        // STEP 3 : N-1개를 B에서 C로 이동 (= mid 지점의 N-1개의 원판을 to 지점으로 옮긴다.)
-        Hanoi(N - 1, mid, start, to);
+    static class Top {
+        int[] top;
+        int index;
 
+        Top(int size) {
+            top = new int[size];
+            index = size;
+        }
+
+        boolean isEmpty() {
+            return index == top.length;
+        }
+
+        int get() {
+            if (isEmpty()) return 0;
+            return top[index];
+        }
+
+        int pop() {
+            int p = top[index];
+            top[index++] = 0;
+            return p;
+        }
+
+        void push(int val) {
+            top[--index] = val;
+        }
+
+        String print() {
+            return Arrays.toString(top);
+        }
     }
 }
