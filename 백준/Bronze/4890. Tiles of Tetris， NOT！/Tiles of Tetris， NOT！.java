@@ -7,8 +7,8 @@ public class Main {
         int H = scanner.nextInt();
         while (W != 0 && H != 0) {
             int gcd = GCD(W, H);
-            long lcm = (long) W / gcd * H;
-            long ans = (lcm / W) * (lcm / H);
+            long lcm = ((long) W / gcd) * H;
+            long ans = lcm/gcd;
             System.out.println(ans);
             W = scanner.nextInt();
             H = scanner.nextInt();
