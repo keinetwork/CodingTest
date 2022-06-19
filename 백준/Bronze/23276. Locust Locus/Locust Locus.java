@@ -1,16 +1,19 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int K = scanner.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int K = Integer.parseInt(br.readLine());
         int ans = Integer.MAX_VALUE;
         for (int i = 0; i < K; i++) {
-            int y = scanner.nextInt();
-            int c1 = scanner.nextInt();
-            int c2 = scanner.nextInt();
-            int ap = y + LCM(c1, c2);
-            if (ans > ap) ans = ap;
+            StringTokenizer token = new StringTokenizer(br.readLine(), " ");
+            int y = Integer.parseInt(token.nextToken());
+            int c1 = Integer.parseInt(token.nextToken());
+            int c2 = Integer.parseInt(token.nextToken());
+            ans = Math.min(ans, y + LCM(c1, c2));
         }
         System.out.println(ans);
     }
