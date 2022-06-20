@@ -7,7 +7,8 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         int ans = 0;
-        for (int m = 1; m < N; m++) {
+        int logn = (int) Math.log10(N) + 1;
+        for (int m = N - (logn * 9); m < N; m++) {
             if (N == m + divide(m)) {
                 ans = m;
                 break;
