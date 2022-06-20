@@ -10,11 +10,11 @@ public class Main {
             index = (index+1) % 2;
             c[index] = System.in.read();
             if(c[index] < 32) break;
-            if (c[index] == 32) {
+            if(c[index] == 32) {
                 result++;
             }
         }
-        if (c[0] != 32 && c[1] != 32) {
+        if (c[++index%2] != 32) {
             result++;
         }
         System.out.print(result);
