@@ -14,19 +14,13 @@ public class Main {
                 prime += input[i] - 'a' + 1;
             }
         }
-
-        boolean[] arr = new boolean[prime + 1];
-        arr[0] = true;
-        arr[1] = false;
-        for (int i = 2; i < Math.sqrt(arr.length); i++) {
-            for (int j = i * i; j < arr.length; j += i) {
-                arr[j] = true;
+        boolean ans = true;
+        for (int i = 2; i < prime; i++) {
+            if (prime % i == 0) {
+                System.out.println("It is not a prime word.");
+                return;
             }
         }
-        if (arr[prime]) {
-            System.out.println("It is not a prime word.");
-        } else {
-            System.out.println("It is a prime word.");
-        }
+        System.out.println("It is a prime word.");
     }
 }
