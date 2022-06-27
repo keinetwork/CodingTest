@@ -1,20 +1,19 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int N = Integer.parseInt(br.readLine());
-        ArrayList<Integer> list = new ArrayList<>();
+        int[] list = new int[N];
         for (int i = 0; i < N; i++) {
             int val = Integer.parseInt(br.readLine());
-            list.add(val);
+            list[i] = val;
         }
-        Collections.sort(list);
-        for (Integer val : list) {
-            bw.write(val.toString());
+        Arrays.sort(list);
+        for (int i = 0; i < N; i++) {
+            bw.write(Integer.toString(list[i]));
             bw.newLine();
         }
         bw.flush();
