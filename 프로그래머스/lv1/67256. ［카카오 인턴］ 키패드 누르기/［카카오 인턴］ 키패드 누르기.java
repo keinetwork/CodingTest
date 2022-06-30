@@ -10,33 +10,38 @@ class Solution {
         StringBuilder sb = new StringBuilder();
         for(int i=0; i<numbers.length; i++){
             int num = numbers[i];
-            if(arr[num][1]==0) {
-                left = arr[num];
-                sb.append("L");
-            }
-            if(arr[num][1]==2) {
-                right = arr[num];
-                sb.append("R");
-            }
-            if(arr[num][1]==1){
-                int[] nPos = arr[num];
-                int x = Math.abs(nPos[0]-left[0])+Math.abs(nPos[1]-left[1]);
-                int y = Math.abs(nPos[0]-right[0])+Math.abs(nPos[1]-right[1]);
-                if(x==y){
-                    if(hand.equals("right")){
+            switch (arr[num][1]){
+                case 0:{
+                    left = arr[num];
+                    sb.append("L");
+                    break;
+                }
+                case 2:{
+                    right = arr[num];
+                    sb.append("R");
+                    break;
+                }
+                case 1:{
+                    int[] nPos = arr[num];
+                    int x = Math.abs(nPos[0]-left[0])+Math.abs(nPos[1]-left[1]);
+                    int y = Math.abs(nPos[0]-right[0])+Math.abs(nPos[1]-right[1]);
+                    if(x==y){
+                        if(hand.equals("right")){
+                            right = arr[num];
+                            sb.append("R");
+                        }
+                        else{
+                            left = arr[num];
+                            sb.append("L");
+                        }
+                    } else if (x < y) {
+                        left = arr[num];
+                        sb.append("L");
+                    } else {
                         right = arr[num];
                         sb.append("R");
                     }
-                    else{
-                        left = arr[num];
-                        sb.append("L");
-                    }
-                } else if (x < y) {
-                    left = arr[num];
-                    sb.append("L");
-                } else {
-                    right = arr[num];
-                    sb.append("R");
+                    break;
                 }
             }
         }
