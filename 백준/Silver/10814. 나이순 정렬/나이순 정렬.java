@@ -1,45 +1,28 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.io.*;
+import java.util.StringTokenizer;
 
-public class Main implements Comparable<Main> {
-    public String word;
-    public int age;
-    public int index;
-
-    public Main(String w) {
-        this.word = w;
-    }
-
-    public static void main(String[] args) throws Exception {
+public class Main {
+    public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        int N = Integer.parseInt(br.readLine());
-        Set<Main> map = new TreeSet<>();
-        for (int i = 0; i < N; i++) {
-            Main m = new Main(br.readLine());
-            m.age = Integer.parseInt(m.word.split(" ")[0]);
-            m.index = i;
-            map.add(m);
+
+        int T = Integer.parseInt(br.readLine());
+        StringBuilder[] ageSb = new StringBuilder[201];
+        for (int i = 0; i < 201; i++) {
+            ageSb[i] = new StringBuilder("");
         }
-        Iterator<Main> itr = map.iterator();
-        while (itr.hasNext()) {
-            bw.write(itr.next().word);
-            bw.newLine();
+        for (int i = 0; i < T; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            int age = Integer.parseInt(st.nextToken());
+            ageSb[age].append(age).append(" ").append(st.nextToken()).append("\n");
+        }
+        for (StringBuilder sb : ageSb) {
+            if (sb.length() > 0) {
+                bw.write(sb.toString());
+            }
         }
         bw.flush();
         bw.close();
         br.close();
-    }
-
-    @Override
-    public int compareTo(Main o) {
-        if (this.age == o.age)
-            return this.index - o.index;
-        return this.age - o.age;
     }
 }
