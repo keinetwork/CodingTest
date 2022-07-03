@@ -2,28 +2,25 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.Map;
+import java.util.StringTokenizer;
+import java.util.TreeMap;
 
 class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int N = Integer.parseInt(br.readLine());
-        int[][] arr = new int[N][2];
+        Map<Long, String> map = new TreeMap<>();
         for (int i = 0; i < N; i++) {
-            arr[i] = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            String str = br.readLine();
+            StringTokenizer st = new StringTokenizer(str);
+            long h1 = Integer.parseInt(st.nextToken()) * 1000000L;
+            long h2 = Integer.parseInt(st.nextToken());
+            map.put(h1 + h2, str);
         }
-        Arrays.sort(arr, new Comparator<int[]>() {
-            @Override
-            public int compare(int[] o1, int[] o2) {
-                if (o1[0] == o2[0])
-                    return o1[1] - o2[1];
-                return o1[0] - o2[0];
-            }
-        });
-        for (int i = 0; i < N; i++) {
-            bw.write(arr[i][0] + " " + arr[i][1]);
+        for (Long i : map.keySet()) {
+            bw.write(map.get(i));
             bw.newLine();
         }
         bw.flush();
