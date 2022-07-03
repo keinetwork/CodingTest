@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String args[]) throws IOException {
@@ -9,8 +10,12 @@ public class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int T = Integer.parseInt(br.readLine());
-        int[] arr = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        int[] sort = Arrays.stream(arr).toArray();
+        int[] arr = new int[T];
+        int[] sort = new int[T];
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < T; i++) {
+            arr[i] = sort[i] = Integer.parseInt(st.nextToken());
+        }
         Arrays.sort(sort);
         Map<Integer, Integer> map = new HashMap<>();
         int index = 0;
