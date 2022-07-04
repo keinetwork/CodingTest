@@ -1,58 +1,20 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-
 class Solution {
-    public int[] solution(int[] answers) {
-        int[] answer = new int[3];
-        int[] ac = new int[3];
-        answer[2] = 3;
-        for (int i = 0; i <answers.length ; i++) {
-            // 1번
-            answer[0] =(answer[0]%5)+1;
-            if(answer[0]== answers[i]){
-                ac[0]++;
-            }
-            //2번
-            if(i%2==0){
-                if(answers[i]==2){
-                    ac[1]++;
-                }
-            }else{
-                answer[1] =(answer[1]%5)+1;
-                if(answer[1]==2)answer[1]++;
-                if(answer[1]== answers[i]){
-                    ac[1]++;
-                }
-            }
-            // 3번
-            if (i % 2 == 0) {
-                if(answer[2]== answers[i]){
-                    ac[2]++;
-                }
-            }else{
-                if(answer[2]== answers[i]){
-                    ac[2]++;
-                }
-                if( answer[2]==3){
-                    answer[2] = 1;
-                }else if( answer[2]==5){
-                    answer[2] = 3;
-                }else if( answer[2]==2){
-                    answer[2] = 4;
-                } else {    // 1, 4
-                    answer[2] =(answer[2]%5)+1;
-                }
-            }
-
+    public int[] solution(int[] answer) {
+        int[] a = {1, 2, 3, 4, 5};
+        int[] b = {2, 1, 2, 3, 2, 4, 2, 5};
+        int[] c = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
+        int[] score = new int[3];
+        for(int i=0; i<answer.length; i++) {
+            if(answer[i] == a[i%a.length]) {score[0]++;}
+            if(answer[i] == b[i%b.length]) {score[1]++;}
+            if(answer[i] == c[i%c.length]) {score[2]++;}
         }
-        int max = 0;
-        for (int i = 0; i <ac.length ; i++) {
-            max = Math.max(max, ac[i]);
-        }
-        ArrayList<Integer> lsit = new ArrayList<>();
-        for (int i = 0; i <ac.length ; i++) {
-            if(ac[i]== max) lsit.add(i+1);
-        }
-        return lsit.stream().mapToInt(Integer::intValue).toArray();
+        int maxScore = Math.max(score[0], Math.max(score[1], score[2]));
+        ArrayList<Integer> list = new ArrayList<>();
+        if(maxScore == score[0]) {list.add(1);}
+        if(maxScore == score[1]) {list.add(2);}
+        if(maxScore == score[2]) {list.add(3);}
+        return list.stream().mapToInt(Integer::intValue).toArray();
     }
 }
