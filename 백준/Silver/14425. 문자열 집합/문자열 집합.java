@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.HashSet;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -8,18 +9,14 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
-        String[] S = new String[N];
+        HashSet<String> set = new HashSet<>();
         for (int i = 0; i < N; i++) {
-            S[i] = br.readLine();
+            set.add(br.readLine());
         }
         int res = 0;
         for (int i = 0; i < M; i++) {
-            String s = br.readLine();
-            for (int j = 0; j < S.length; j++) {
-                if (S[j].equals(s)) {
-                    res++;
-                    break;
-                }
+            if (set.contains(br.readLine())) {
+                res++;
             }
         }
         System.out.println(res);
