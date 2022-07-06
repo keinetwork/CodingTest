@@ -1,25 +1,40 @@
-import java.io.*;
-import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        int[] point = new int[3];
+        StringTokenizer in;
+        StringBuilder sb = new StringBuilder();
+        int x, y, h;
+
         while (true) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            point[0] = Integer.parseInt(st.nextToken());
-            if (point[0] == 0) break;
-            point[1] = Integer.parseInt(st.nextToken());
-            point[2] = Integer.parseInt(st.nextToken());
-            Arrays.sort(point);
-            if (point[0] * point[0] + point[1] * point[1] == point[2] * point[2]) {
-                bw.write("right\n");
-            } else {
-                bw.write("wrong\n");
+            in = new StringTokenizer(br.readLine());
+            x = Integer.parseInt(in.nextToken());
+            y = Integer.parseInt(in.nextToken());
+            h = Integer.parseInt(in.nextToken());
+
+            if (x == 0 && y == 0 && h == 0) {
+                break;
             }
+
+            sb.append(get(x * x, y * y, h * h)).append("\n");
         }
-        bw.flush();
+
+        System.out.println(sb);
+    }
+
+    public static String get(int x2, int y2, int h2) {
+        if (x2 + y2 == h2) {
+            return "right";
+        } else if (x2 + h2 == y2) {
+            return "right";
+        } else if (x2 == y2 + h2) {
+            return "right";
+        } else {
+            return "wrong";
+        }
     }
 }
