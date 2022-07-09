@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
+    static int[] fact = {1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800, 3628800};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -14,19 +15,6 @@ public class Main {
         if (K > N / 2) {
             K = N - K;
         }
-        System.out.println(bino_coef_dynamic(N, K));
-    }
-    public static int bino_coef_dynamic(int n, int k) {
-        int[][] arr = new int[n + 1][k + 1];
-
-        for (int i = 0; i <= n; i++) {
-            for (int j = 0; j <= Math.min(i, k); j++) {
-                if (j == 0 || j == i)
-                    arr[i][j] = 1;
-                else
-                    arr[i][j] = arr[i - 1][j] + arr[i - 1][j - 1];
-            }
-        }
-        return arr[n][k];
+        System.out.println(fact[N] / fact[K] / fact[N - K]);
     }
 }
