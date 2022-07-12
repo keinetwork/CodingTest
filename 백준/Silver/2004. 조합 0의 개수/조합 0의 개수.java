@@ -1,37 +1,33 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
 
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer in = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(in.nextToken());
+        int M = Integer.parseInt(in.nextToken());
 
-        long N = in.nextLong();
-        long M = in.nextLong();
-
-        // 각각의 승수를 구해준다.
-        long count5 = five_power_n(N) - five_power_n(N - M) - five_power_n(M);
-        long count2 = two_power_n(N) - two_power_n(N - M) - two_power_n(M);
-
-        System.out.println(Math.min(count5, count2));
-
+        int cnt2 = count2(N) - count2(M) - count2(N - M);
+        int cnt5 = count5(N) - count5(M) - count5(N - M);
+        System.out.println(Math.min(cnt2, cnt5));
     }
 
-    // 5의 승수를 구하는 함수 
-    static long five_power_n(long num) {
+    public static int count5(int num) {
         int count = 0;
-
-        while(num >= 5) {
+        while (num >= 5) {
             count += (num / 5);
             num /= 5;
         }
         return count;
     }
 
-    // 2의 승수를 구하는 함수
-    static long two_power_n(long num) {
+    public static int count2(int num) {
         int count = 0;
-
-        while(num >= 2) {
+        while (num >= 2) {
             count += (num / 2);
             num /= 2;
         }
