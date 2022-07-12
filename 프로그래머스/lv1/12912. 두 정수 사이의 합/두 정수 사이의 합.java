@@ -5,8 +5,10 @@ class Solution {
             a = b;
             b = temp;
         }
-        long answer = (long)(Math.pow(a,2)-Math.pow(b,2)+a+b)/2;
+        // a*(a+1)/2-(b-1)*b/2
+        // (a*(a+1)-(b-1)*b)/2
+        // (a2+a-b2+b)/2 = ((a+b)*(a-b+1))/2
         
-        return answer;
+        return (a+b)*(a-b+1)/2;
     }
 }
