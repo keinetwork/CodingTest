@@ -12,6 +12,6 @@ class Solution {
             int[] ret = {-1};
             return ret;
         }
-        return list.stream().mapToInt(Integer::intValue).toArray();
+        return list.stream().sorted().mapToInt(Integer::intValue).toArray();
     }
 }
