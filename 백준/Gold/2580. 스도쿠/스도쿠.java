@@ -1,95 +1,69 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
+    static int[][] a = new int[10][10];
+    static boolean[][] c = new boolean[10][10];
+    static boolean[][] c2 = new boolean[10][10];
+    static boolean[][] c3 = new boolean[10][10];
+    static int n = 9;
+    static int cnt = 0;
 
-    public static int[][] arr = new int[9][9];
+    static int square(int x, int y) {
+        return (x / 3) * 3 + (y / 3);
+    }
 
-    public static void main(String[] args) throws IOException {
-
+    public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        for (int i = 0; i < 9; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-            for (int j = 0; j < 9; j++) {
-                arr[i][j] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < n; i++) {
+            StringTokenizer in = new StringTokenizer(br.readLine());
+            for (int j = 0; j < n; j++) {
+                a[i][j] = Integer.parseInt(in.nextToken());
+                int val = a[i][j];
+                if (a[i][j] != 0) {
+                    c[i][val] = true;
+                    c2[j][val] = true;
+                    c3[square(i, j)][val] = true;
+                }
             }
         }
-
-        sudoku(0, 0);
-
+        go(0);
     }
 
-    public static void sudoku(int row, int col) {
-
-        // 해당 행이 다 채워졌을 경우 다음 행의 첫 번째 열부터 시작
-        if (col == 9) {
-            sudoku(row + 1, 0);
-            return;
+    static boolean go(int z) {
+        cnt += 1;
+        if (cnt >= 10000000) {
+            return true;
         }
-
-        // 행과 열이 모두 채워졌을 경우 출력 후 종료
-        if (row == 9) {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < 9; i++) {
-                for (int j = 0; j < 9; j++) {
-                    sb.append(arr[i][j]).append(' ');
+        if (z == 81) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    System.out.print(a[i][j] + " ");
                 }
-                sb.append('\n');
+                System.out.println();
             }
-            System.out.println(sb);
-            // 출력 뒤 시스템을 종료한다.
-            System.exit(0);
+            return true;
         }
 
-        // 만약 해당 위치의 값이 0 이라면 1부터 9까지 중 가능한 수 탐색
-        if (arr[row][col] == 0) {
+        int x = z / n;
+        int y = z % n;
+        if (a[x][y] != 0) {
+            return go(z + 1);
+        } else {
             for (int i = 1; i <= 9; i++) {
-                // i 값이 중복되지 않는지 검사
-                if (possibility(row, col, i)) {
-                    arr[row][col] = i;
-                    sudoku(row, col + 1);
-                }
-            }
-            arr[row][col] = 0;
-            return;
-        }
-
-        sudoku(row, col + 1);
-
-    }
-
-    public static boolean possibility(int row, int col, int value) {
-
-        // 같은 행에 있는 원소들 중 겹치는 열 원소가 있는지 검사
-        for (int i = 0; i < 9; i++) {
-            if (arr[row][i] == value) {
-                return false;
-            }
-        }
-
-        // 같은 열에 있는 원소들 중 겹치는 행 원소가 있는지 검사
-        for (int i = 0; i < 9; i++) {
-            if (arr[i][col] == value) {
-                return false;
-            }
-        }
-
-        // 3*3 칸에 중복되는 원소가 있는지 검사
-        int set_row = (row / 3) * 3; // value가 속한 3x3의 행의 첫 위치
-        int set_col = (col / 3) * 3; // value가 속한 3x3의 열의 첫 위치
-
-        for (int i = set_row; i < set_row + 3; i++) {
-            for (int j = set_col; j < set_col + 3; j++) {
-                if (arr[i][j] == value) {
-                    return false;
+                if (c[x][i] == false && c2[y][i] == false && c3[square(x, y)][i] == false) {
+                    c[x][i] = c2[y][i] = c3[square(x, y)][i] = true;
+                    a[x][y] = i;
+                    if (go(z + 1)) {
+                        return true;
+                    }
+                    a[x][y] = 0;
+                    c[x][i] = c2[y][i] = c3[square(x, y)][i] = false;
                 }
             }
         }
-
-        return true; // 중복되는 것이 없을 경우 true 반환
+        return false;
     }
 
 }
