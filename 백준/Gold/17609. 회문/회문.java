@@ -3,51 +3,43 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
+    static char[] word;
+    static class Position {
+        int left;
+        int right;
+        public Position(int left, int right) {
+            this.left = left;
+            this.right = right;
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        int n = Integer.parseInt(br.readLine());
-
-        StringBuilder sb = new StringBuilder();
-
-        while ((n--) > 0) {
-            String str = br.readLine();
-
-            if (isP0(str)) {
-                sb.append(0).append("\n");
-                continue;
-            } else if (isP1(str)) {
-                sb.append(1).append("\n");
-                continue;
-            } else sb.append(2).append("\n");
+        int T = Integer.parseInt(br.readLine());
+        for (int i = 0; i < T; i++) {
+            word = br.readLine().toCharArray();
+            Position pos = new Position(0, word.length - 1);
+            if (check(pos)) {
+                System.out.println(0);
+            } else {
+                if (check(new Position(pos.left + 1, pos.right)) ||
+                        check(new Position(pos.left, pos.right - 1))) {
+                    System.out.println(1);
+                } else {
+                    System.out.println(2);
+                }
+            }
         }
-        System.out.println(sb.toString());
-
     }
 
-    private static boolean isP0(String str) {
-        int l = 0;
-        int r = str.length() - 1;
-        while (l <= r) {
-            if (str.charAt(l) != str.charAt(r)) {
+    private static boolean check(Position pos) {
+        while (pos.left<=pos.right) {
+            if (word[pos.left]== word[pos.right]) {
+                pos.left++;
+                pos.right--;
+            } else {
                 return false;
             }
-            l++;
-            r--;
-        }
-        return true;
-    }
-
-    private static boolean isP1(String str) {
-        int l=0;
-        int r = str.length() - 1;
-
-        while (l <= r) {
-            if (str.charAt(l) != str.charAt(r)) {
-                return isP0(str.substring(l + 1, r + 1)) || isP0(str.substring(l, r));
-            }
-            l++;
-            r--;
         }
         return true;
     }
