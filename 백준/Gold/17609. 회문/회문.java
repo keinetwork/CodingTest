@@ -1,54 +1,53 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
-    static int t;
-    static String s;
-    static char[] arr;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        Scanner sc=new Scanner(System.in);
-        t=sc.nextInt();
-        for (int tc = 1; tc <=t; tc++) {
-            s=sc.next();
-            arr=s.toCharArray();
-            int left=0;
-            int right=s.length()-1;
-            if(check(left,right)) {
-                System.out.println(0);
+        int n = Integer.parseInt(br.readLine());
+
+        StringBuilder sb = new StringBuilder();
+
+        while ((n--) > 0) {
+            String str = br.readLine();
+
+            if (isP0(str)) {
+                sb.append(0).append("\n");
                 continue;
-            }
-            if(checkS(left,right)) {
-                System.out.println(1);
-            }else {
-                System.out.println(2);
-            }
-
+            } else if (isP1(str)) {
+                sb.append(1).append("\n");
+                continue;
+            } else sb.append(2).append("\n");
         }
+        System.out.println(sb.toString());
 
     }
 
-    private static boolean check(int left,int right) {
-        while(left<=right) {
-            if(arr[left]!=arr[right]) {//다름
+    private static boolean isP0(String str) {
+        int l = 0;
+        int r = str.length() - 1;
+        while (l <= r) {
+            if (str.charAt(l) != str.charAt(r)) {
                 return false;
             }
-            left+=1;
-            right-=1;
+            l++;
+            r--;
         }
         return true;
     }
 
-    private static boolean checkS(int left,int right) {
-        while(left<=right) {
-            if(arr[left]!=arr[right]) {//다름
-                boolean a=check(left+1,right);
-                boolean b=check(left,right-1);
-                if(a==false && b==false) {
-                    return false;
-                }else return true;
+    private static boolean isP1(String str) {
+        int l=0;
+        int r = str.length() - 1;
+
+        while (l <= r) {
+            if (str.charAt(l) != str.charAt(r)) {
+                return isP0(str.substring(l + 1, r + 1)) || isP0(str.substring(l, r));
             }
-            left+=1;
-            right-=1;
+            l++;
+            r--;
         }
         return true;
     }
