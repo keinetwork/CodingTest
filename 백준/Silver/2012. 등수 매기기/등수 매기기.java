@@ -11,10 +11,10 @@ public class Main {
         for (int i = 1; i <= N; i++) {
             arr[i] = Integer.parseInt(br.readLine());
         }
-        Arrays.sort(arr);       
+        Arrays.sort(arr);
         long res = 0;
         for (int i = 1; i <=N ; i++) {
-            res += Math.abs(i-arr[i]);
+            res += Math.abs(arr[i]-i);
         }
         System.out.println(res);
     }
